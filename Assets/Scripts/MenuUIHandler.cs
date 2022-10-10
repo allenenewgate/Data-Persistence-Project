@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class MenuUIHandler : MonoBehaviour
 {
@@ -19,6 +22,10 @@ public class MenuUIHandler : MonoBehaviour
     {
         UpdateHighScore();
         playerNameText.text = "Player Name: " + SaveSystem.playerName;
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Exit();
+        }
     }
 
     public void StartNew()
@@ -35,5 +42,14 @@ public class MenuUIHandler : MonoBehaviour
     {
             Debug.Log(name);
             SaveSystem.playerName = name;
+    }
+
+    public void Exit()
+    {
+#if UNITY_EDITOR
+        EditorApplication.ExitPlaymode();
+#else
+        Application.Quit();
+#endif
     }
 }

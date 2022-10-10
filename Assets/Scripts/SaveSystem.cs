@@ -33,7 +33,6 @@ public class SaveSystem : MonoBehaviour
 
         string json = JsonUtility.ToJson(data);
         File.WriteAllText(saveFile, json);
-        Debug.Log($"Written to {saveFile}");
     }
 
     void ReadSaveFile()
@@ -47,7 +46,6 @@ public class SaveSystem : MonoBehaviour
             highScore = data.score;
             highScoreName = data.name;
         }
-        Debug.Log($"Read from {saveFile}");
     }
 
     [System.Serializable]
