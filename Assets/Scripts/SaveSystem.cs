@@ -1,3 +1,4 @@
+using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,8 +21,36 @@ public class SaveSystem : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        ReadSaveFile();
     }
 
+    public static void SaveToFile()
+    {
+        SaveData data = new SaveData();
+        string saveFile = Application.persistentDataPath + "/savefile.json";
+        data.name = highScoreName;
+        data.score = highScore;
+
+        string json = JsonUtility.ToJson(data);
+        File.WriteAllText(saveFile, json);
+        Debug.Log($"Written to {saveFile}");
+    }
+
+    void ReadSaveFile()
+    {
+        string saveFile = Application.persistentDataPath + "/savefile.json";
+
+        if (File.Exists(saveFile))
+        {
+            string json = File.ReadAllText(saveFile);
+            SaveData data = JsonUtility.FromJson<SaveData>(json);
+            highScore = data.score;
+            highScoreName = data.name;
+        }
+        Debug.Log($"Read from {saveFile}");
+    }
+
+    [System.Serializable]
     class SaveData
     {
         public string name;

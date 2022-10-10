@@ -58,6 +58,7 @@ public class MainManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                SaveSystem.SaveToFile();
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
         }
@@ -65,6 +66,7 @@ public class MainManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            SaveSystem.SaveToFile();
             SceneManager.LoadScene(0);
         }
     }
@@ -89,5 +91,6 @@ public class MainManager : MonoBehaviour
     {
         m_GameOver = true;
         GameOverText.SetActive(true);
+        SaveSystem.SaveToFile();
     }
 }
